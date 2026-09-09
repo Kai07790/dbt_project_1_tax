@@ -1,0 +1,10 @@
+tax_pipeline:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: dbt-project-1-tax
+      dataset: tax_data_mart 
+      threads: 4
+      keyfile: ./bigquery_key.json
