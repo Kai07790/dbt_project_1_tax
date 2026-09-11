@@ -7,8 +7,9 @@ logs/
 target/
 dbt_packages/
 
-# 3. 개인 참고 문서
+# 3. 개인 참고 및 테스트 문서
 docs/
+scripts/test.ipynb
 
 # 4. 원천 및 전처리된 데이터
 raw_data/*
