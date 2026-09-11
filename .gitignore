@@ -1,4 +1,4 @@
-# 1. 절대 공개되면 안 되는 클라우드 인증 키
+# 1. 클라우드 인증 키
 bigquery_key.json
 
 # 2. dbt 내부 로그 및 사용자 식별 파일
@@ -7,8 +7,12 @@ logs/
 target/
 dbt_packages/
 
-# 3. 개인 참고용 문서 폴더 통째로 제외
+# 3. 개인 참고 및 테스트 문서
 docs/
+scripts/test.ipynb
 
-# 4. 데이터 폴더 통째로 제외 (원본 및 향후 정제될 데이터 포함)
-raw_data/
+# 4. 원천 및 전처리된 데이터
+raw_data/*
+!raw_data/.gitkeep
+processed_data/*
+!processed_data/.gitkeep
