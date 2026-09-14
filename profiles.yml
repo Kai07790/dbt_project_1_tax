@@ -5,6 +5,6 @@ dbt_project_1_tax:
       type: bigquery
       method: service-account
       project: dbt-project-1-tax
-      dataset: tax_population
+      dataset: tax_admin
       threads: 4
       keyfile: ./bigquery_key.json

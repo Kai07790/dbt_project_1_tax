@@ -1,12 +1,12 @@
 version: 2
 
 sources:
-  - name: tax_population_raw
+  - name: tax_admin_raw
     description: >
       KOSIS 국가통계포털에서 수집한 국세·지방세·인구 원본데이터를 Python으로 전처리한 뒤
       BigQuery에 적재한 raw 레이어입니다.
     database: dbt-project-1-tax
-    schema: tax_population_raw
+    schema: tax_admin_raw
     tables:
       - name: national_tax
         description: >
