@@ -11,7 +11,7 @@ renamed AS(
         `세목별4` AS tax_category_level_4,
         `세목별5` AS tax_category_level_5,
         `세목별6` AS tax_category_level_6,
-        `연도` AS tax_year,
+        SAFE_CAST(`연도` AS INT64) AS tax_year,
         `지방청` AS regional_tax_office,
         `지역` AS region,
         `금액 단위` AS value_type,
