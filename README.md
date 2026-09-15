@@ -36,10 +36,27 @@
 ## 5. 핵심 데이터 모델링
 (작성 예정)
 
-## 6. 트러블 슈팅 및 해결 과정
-* 구글 클라우드 IAM 보안 정책 차단 해결 (완료)
-* 로컬 dbt-core 및 빅쿼리 환경 연동 (완료)
+## 6. 개발 및 커밋 컨벤션 (Development & Commit Convention)
+본 프로젝트는 데이터 파이프라인의 정합성 유지와 더불어, 명확한 히스토리 관리 및 협업을 위해 아래의 명명 규칙과 Git 컨벤션을 엄격하게 준수합니다.
 
-## 7. 기술 스택
+### 6.1. 핵심 기술 명칭 표준화
+* **BigQuery**: 빅쿼리, bigquery 등 혼용 금지
+* **dbt**: DBT, Dbt 혼용 금지
+* **source**: dbt 파이프라인 내 원본 데이터 명세
+* **dataset**: BigQuery 물리 데이터셋 인프라
+* **raw data**: 원본 csv 파일 및 데이터 자체
+
+### 6.2. Git Commit Prefix
+* `feat`: 새로운 모델 생성 및 데이터 전처리 로직 추가
+* `refactor`: 기존 스키마, 데이터셋 이름 변경 및 구조 개선
+* `chore`: dbt 초기 세팅 등 기타 설정
+* `docs`: README 및 명세서 작성
+
+## 7. 트러블 슈팅 및 해결 과정
+* 구글 클라우드 IAM 보안 정책 차단 해결 (완료)
+* 로컬 dbt-core 및 BigQuery 환경 연동 (완료)
+* Git Rebase 중 Merge 커밋 평탄화(Flattening) 충돌 해결: `--rebase-merges` 옵션을 활용한 구조 보존 및 `--force-with-lease`를 통한 원격 저장소 안전 동기화 (완료, Issue #2 참조)
+
+## 8. 기술 스택
 * **언어:** SQL, Python
-* **도구:** Cursor, dbt Core, Google BigQuery, GitHub
+* **도구:** dbt Core, Google BigQuery, GitHub, Cursor
