@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  # ==========================================
+  # 1. 세수실적 Staging 모델
+  # ==========================================
+  - name: stg_tax_admin__national_tax
+    description: 지역별·세목별·연도별 국세 세수실적 (2020-2024) 정제 모델
+    columns:
+      - name: tax_category_level_1
+        description: 국세 세목 계층 1단계 (가장 넓은 세목 단위)
+      - name: tax_category_level_2
+        description: 국세 세목 계층 2단계
+      - name: tax_category_level_3
+        description: 국세 세목 계층 3단계
+      - name: tax_category_level_4
+        description: 국세 세목 계층 4단계
+      - name: tax_category_level_5
+        description: 국세 세목 계층 5단계
+      - name: tax_category_level_6
+        description: 국세 세목 계층 6단계 (가장 좁은 세목 단위)
+      - name: tax_year
+        description: 세수 발생 연도
+      - name: regional_tax_office
+        description: 세수 집계 지역 (국세청 지방청 단위)
+      - name: region
+        description: 세수 집계 지역 (시·도 단위)
+      - name: value_type
+        description: 세수액 단위 / 세수 구성비 구분 지표
+      - name: tax_value
+        description: 해당 지역·세목·연도 기준 국세 세수액 / 세수 구성비
+
+  - name: stg_tax_admin__local_tax_metro
+    description: 지역별(특별시·광역시)·세목별·연도별 지방세 세수실적 (2020-2024) 정제 모델
+    columns:
+      - name: region
+        description: 세수 집계 지역 (특별시·광역시 단위)
+      - name: tax_year
+        description: 세수 발생 연도
+      - name: tax_type
+        description: 지방세 세목 분류 체계
+      - name: tax_name
+        description: 지방세 세목 명칭
+      - name: tax_amount
+        description: 해당 지역·세목·연도 기준 지방세 세수액
+
+  - name: stg_tax_admin__local_tax_provincial
+    description: 지역별(도)·세목별·연도별 지방세 세수실적 (2020-2024) 정제 모델
+    columns:
+      - name: region
+        description: 세수 집계 지역 (도 단위)
+      - name: tax_year
+        description: 세수 발생 연도
+      - name: tax_type
+        description: 지방세 세목 분류 체계
+      - name: tax_name
+        description: 지방세 세목 명칭
+      - name: tax_amount
+        description: 해당 지역·세목·연도 기준 지방세 세수액
+
+  # ==========================================
+  # 2. 인구통계 Staging 모델
+  # ==========================================
+  - name: stg_tax_admin__population
+    description: 지역별·성별·연령별·연도별 주민등록인구수 통계 (2020-2024) 정제 모델
+    columns:
+      - name: region
+        description: 인구수 집계 지역 (시·도 단위)
+      - name: gender
+        description: 성별 분류
+      - name: population_year
+        description: 통계 집계 연도
+      - name: age
+        description: 연령 분류 (5세 단위)
+      - name: population_count
+        description: 해당 지역·성별·연령·연도 기준 주민등록인구수

@@ -1,0 +1,91 @@
+version: 2
+
+sources:
+  - name: tax_admin_raw
+    description: >
+      KOSIS 국가통계포털에서 수집한 국세·지방세·인구 raw data를 
+      Python으로 전처리 후 BigQuery에 적재
+    database: dbt-project-1-tax
+    schema: tax_admin_raw
+    tables:
+      # ==========================================
+      # 1. 세수실적 source
+      # ==========================================
+      - name: national_tax
+        description: >
+          지역별·세목별·연도별 국세 세수실적 (2020-2024)
+          원천: KOSIS 2.1.3 지역별·세목별 세수 현황[2005-]
+        columns:
+          - name: 세목별1
+            description: 국세 세목 계층 1단계 (가장 넓은 세목 단위)
+          - name: 세목별2
+            description: 국세 세목 계층 2단계
+          - name: 세목별3
+            description: 국세 세목 계층 3단계
+          - name: 세목별4
+            description: 국세 세목 계층 4단계
+          - name: 세목별5
+            description: 국세 세목 계층 5단계
+          - name: 세목별6
+            description: 국세 세목 계층 6단계 (가장 좁은 세목 단위)
+          - name: 연도
+            description: 세수 발생 연도
+          - name: 지방청
+            description: 세수 집계 지역 (국세청 지방청 단위)
+          - name: 지역
+            description: 세수 집계 지역 (시·도 단위)
+          - name: 금액 단위
+            description: 세수액 단위 / 세수 구성비 구분 지표
+          - name: 세수액
+            description: 해당 지역·세목·연도 기준 국세 세수액 / 세수 구성비
+
+      - name: local_tax_metro
+        description: >
+          지역별(특별시·광역시)·세목별·연도별 지방세 세수실적 (2020-2024)
+          원천: KOSIS 1-1. 특별시 및 광역시 징수실적(총괄)
+        columns:
+          - name: 자치단체별1
+            description: 세수 집계 지역 (특별시·광역시 단위)
+          - name: 연도
+            description: 세수 발생 연도
+          - name: 분류
+            description: 지방세 세목 분류 체계
+          - name: 세목
+            description: 지방세 세목 명칭
+          - name: 세수액
+            description: 해당 지역·세목·연도 기준 지방세 세수액
+
+      - name: local_tax_provincial
+        description: >
+          지역별(도)·세목별·연도별 지방세 세수실적 (2020-2024)
+          원천: KOSIS 1-2. 도별 징수실적(총괄)
+        columns:
+          - name: 자치단체별1
+            description: 세수 집계 지역 (도 단위)
+          - name: 연도
+            description: 세수 발생 연도
+          - name: 분류
+            description: 지방세 세목 분류 체계
+          - name: 세목
+            description: 지방세 세목 명칭
+          - name: 세수액
+            description: 해당 지역·세목·연도 기준 지방세 세수액
+
+      # ==========================================
+      # 2. 인구통계 source
+      # ==========================================
+      - name: population
+        description: >
+          지역별·성별·연령별·연도별 주민등록인구수 통계 (2020-2024)
+          원천: KOSIS 행정구역(읍면동)별/5세별 주민등록인구[2011-]
+        columns:
+          - name: 행정구역별_동읍면
+            description: 인구수 집계 지역 (시·도 단위)
+          - name: 항목
+            description: 성별 분류
+          - name: 연도
+            description: 통계 집계 연도
+          - name: 연령
+            description: 연령 분류 (5세 단위)
+          - name: 인구수
+            description: 해당 지역·성별·연령·연도 기준 주민등록인구수
