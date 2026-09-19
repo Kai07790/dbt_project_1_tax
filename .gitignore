@@ -6,6 +6,7 @@ logs/
 .user.yml
 target/
 dbt_packages/
+.vscode
 
 # 3. 개인 참고 및 테스트 문서
 docs/
