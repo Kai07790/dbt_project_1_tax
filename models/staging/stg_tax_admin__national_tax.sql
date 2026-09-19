@@ -14,6 +14,14 @@ renamed AS(
         `세목별4` AS tax_category_level_4,
         `세목별5` AS tax_category_level_5,
         `세목별6` AS tax_category_level_6,
+        COALESCE(
+            NULLIF(`세목별6`, '소계'),
+            NULLIF(`세목별5`, '소계'),
+            NULLIF(`세목별4`, '소계'),
+            NULLIF(`세목별3`, '소계'),
+            NULLIF(`세목별2`, '소계'),
+            `세목별1`
+        ) AS effective_tax_category_name,
         SAFE_CAST(SAFE_CAST(`세수액` AS FLOAT64) * 1000000 AS INT64) AS tax_amount
     FROM source
 ),
