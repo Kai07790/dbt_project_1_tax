@@ -11,6 +11,7 @@ renamed AS(
         `세목별2` AS tax_category_level_2,
         SAFE_CAST(`세수액` AS INT64) * 1000 AS tax_amount
     FROM source
+    WHERE `세목별2` != '소계'
 ),
 
 added_surrogate_key AS(
