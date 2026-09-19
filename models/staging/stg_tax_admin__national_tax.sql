@@ -13,9 +13,8 @@ renamed AS(
         `세목별3` AS tax_category_level_3,
         `세목별4` AS tax_category_level_4,
         `세목별5` AS tax_category_level_5,
-        `세목별6` AS tax_category_level_6,   
-        `금액 단위` AS value_type,
-        SAFE_CAST(`세수액` AS FLOAT64) AS tax_value
+        `세목별6` AS tax_category_level_6,
+        SAFE_CAST(SAFE_CAST(`세수액` AS FLOAT64) * 1000000 AS INT64) AS tax_amount
     FROM source
 ),
 
@@ -30,8 +29,7 @@ added_surrogate_key AS(
             'tax_category_level_3',
             'tax_category_level_4',
             'tax_category_level_5',
-            'tax_category_level_6',
-            'value_type'
+            'tax_category_level_6'
         ]) }} AS tax_revenue_id,
         *
     FROM renamed

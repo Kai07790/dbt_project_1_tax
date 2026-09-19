@@ -6,9 +6,9 @@ WITH source AS(
 renamed AS(
     SELECT
         SAFE_CAST(`연도` AS INT64) AS population_year,
-        `행정구역별_동읍면` AS region,
+        `지역` AS region,
         `항목` AS gender,
-        `연령` AS age,
+        `5세별` AS age,
         SAFE_CAST(`인구수` AS INT64) AS population_count
     FROM source
 ),
