@@ -27,6 +27,8 @@ models:
         description: 국세 세목 계층 5단계 (중분류)
       - name: tax_category_level_6
         description: 국세 세목 계층 6단계 (소분류)
+      - name: effective_tax_category_name
+        description: 국세 세목 계층(1-6단계) 중 구조적 채움값인 '소계'를 배제하고 추출한 실질적 최하위 세목명 (파생 변수)
       - name: tax_amount
         description: "해당 지역·세목·연도 기준 국세 세수액 (단위: 원)"
 
