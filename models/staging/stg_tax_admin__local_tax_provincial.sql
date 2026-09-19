@@ -6,10 +6,10 @@ WITH source AS(
 renamed AS(
     SELECT
         SAFE_CAST(`연도` AS INT64) AS tax_year,
-        `자치단체별1` AS region,
-        `분류` AS tax_category_level_1,
-        `세목` AS tax_category_level_2,
-        SAFE_CAST(`세수액` AS INT64) AS tax_amount
+        `지역` AS region,
+        `세목별1` AS tax_category_level_1,
+        `세목별2` AS tax_category_level_2,
+        SAFE_CAST(`세수액` AS INT64) * 1000 AS tax_amount
     FROM source
 ),
 
