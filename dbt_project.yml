@@ -8,3 +8,7 @@ models:
     staging:
       +schema: staging
       +materialized: view
+
+seeds:
+  dbt_project_1_tax:
+      +schema: seeds
