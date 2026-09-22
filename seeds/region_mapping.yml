@@ -1,0 +1,39 @@
+version: 2
+
+seeds:
+  - name: region_mapping
+    description: >
+      지방세 및 인구 source의 시·도 명칭을
+      국세 기준의 표준 지역명으로 변환하기 위한 mapping table
+
+    columns:
+      - name: raw_region
+        description: 원천 데이터에 존재하는 지역명
+        data_tests:
+          - unique
+          - not_null
+
+      - name: standard_region
+        description: 분석 파이프라인에서 사용하는 표준 지역명
+        data_tests:
+          - not_null
+          - accepted_values:
+                arguments:
+                  values:
+                    - 서울
+                    - 부산
+                    - 대구
+                    - 인천
+                    - 광주
+                    - 대전
+                    - 울산
+                    - 세종
+                    - 경기
+                    - 강원
+                    - 충북
+                    - 충남
+                    - 전북
+                    - 전남
+                    - 경북
+                    - 경남
+                    - 제주
