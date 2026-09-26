@@ -17,7 +17,7 @@ renamed AS(
             WHEN s.`항목` = '여자인구수 (명)' THEN '여'
             ELSE NULL
         END AS gender,
-        s.`5세별` AS age,
+        REPLACE(s.`5세별`, ' ', '') AS age,
         SAFE_CAST(s.`인구수` AS INT64) AS population_count
     FROM source AS s
     LEFT JOIN region_mapping AS r
