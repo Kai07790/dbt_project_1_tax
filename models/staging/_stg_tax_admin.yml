@@ -9,26 +9,87 @@ models:
     columns:
       - name: tax_revenue_id
         description: 국세 세수실적 고유 식별자 (대체키). 연도, 지방청, 지역 및 세목 계층(1-6단계) 조합에 대한 Hash 값
+        data_tests:
+          - unique
+          - not_null
       - name: tax_year
         description: 세수 발생 연도
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 2020
+                  - 2021
+                  - 2022
+                  - 2023
+                  - 2024
+                quote: false
       - name: regional_tax_office
         description: 세수 집계 관할 지방국세청
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 서울청
+                  - 중부청
+                  - 인천청
+                  - 대전청
+                  - 광주청
+                  - 대구청
+                  - 부산청       
       - name: region
         description: 세수 집계 지역 구분 (시·도 수준)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 서울
+                  - 부산
+                  - 대구
+                  - 인천
+                  - 광주
+                  - 대전
+                  - 울산
+                  - 경기
+                  - 강원
+                  - 충북
+                  - 충남·세종
+                  - 전북
+                  - 전남
+                  - 경북
+                  - 경남
+                  - 제주
       - name: tax_category_level_1
         description: 국세 세목 계층 1단계 (대분류)
+        data_tests:
+          - not_null
       - name: tax_category_level_2
         description: 국세 세목 계층 2단계 (중분류)
+        data_tests:
+          - not_null
       - name: tax_category_level_3
         description: 국세 세목 계층 3단계 (중분류)
+        data_tests:
+          - not_null
       - name: tax_category_level_4
         description: 국세 세목 계층 4단계 (중분류)
+        data_tests:
+          - not_null
       - name: tax_category_level_5
         description: 국세 세목 계층 5단계 (중분류)
+        data_tests:
+          - not_null
       - name: tax_category_level_6
         description: 국세 세목 계층 6단계 (소분류)
+        data_tests:
+          - not_null
       - name: effective_tax_category_name
         description: 국세 세목 계층(1-6단계) 중 구조적 채움값인 '소계'를 배제하고 추출한 실질적 최하위 세목명 (파생 변수)
+        data_tests:
+          - not_null 
       - name: tax_amount
         description: "해당 지역·세목·연도 기준 국세 세수액 (단위: 원)"
 
@@ -37,32 +98,99 @@ models:
     columns:
       - name: tax_revenue_id
         description: 지방세 세수실적 고유 식별자 (대체키). 연도, 지역 및 세목 계층(1-2단계) 조합에 대한 Hash 값
+        data_tests:
+          - unique
+          - not_null
       - name: tax_year
-        description: 세수 발생 연도  
+        description: 세수 발생 연도
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 2020
+                  - 2021
+                  - 2022
+                  - 2023
+                  - 2024
+                quote: false
       - name: region
         description: 세수 집계 지역 구분 (시 단위 광역자치단체)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 서울
+                  - 부산
+                  - 대구
+                  - 인천
+                  - 광주
+                  - 대전
+                  - 울산
+                  - 세종
       - name: tax_category_level_1
         description: 지방세 세목 계층 1단계 (대분류)
+        data_tests:
+          - not_null
       - name: tax_category_level_2
         description: 지방세 세목 계층 2단계 (소분류)
+        data_tests:
+          - not_null
       - name: tax_amount
         description: "해당 지역·세목·연도 기준 지방세 세수액 (단위: 원)"
+        data_tests:
+          - not_null
 
   - name: stg_tax_admin__local_tax_provincial
     description: 지역별(도 단위 광역자치단체)·세목별·연도별 지방세 세수실적 (2020-2024) 정제 모델
     columns:
       - name: tax_revenue_id
         description: 지방세 세수실적 고유 식별자 (대체키). 연도, 지역 및 세목 계층(1-2단계) 조합에 대한 Hash 값
+        data_tests:
+          - unique
+          - not_null
       - name: tax_year
-        description: 세수 발생 연도  
+        description: 세수 발생 연도
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 2020
+                  - 2021
+                  - 2022
+                  - 2023
+                  - 2024
+                quote: false
       - name: region
         description: 세수 집계 지역 구분 (도 단위 광역자치단체)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 경기
+                  - 강원
+                  - 충북
+                  - 충남
+                  - 전북
+                  - 전남
+                  - 경북
+                  - 경남
+                  - 제주
       - name: tax_category_level_1
         description: 지방세 세목 계층 1단계 (대분류)
+        data_tests:
+          - not_null
       - name: tax_category_level_2
         description: 지방세 세목 계층 2단계 (소분류)
+        data_tests:
+          - not_null
       - name: tax_amount
         description: "해당 지역·세목·연도 기준 지방세 세수액 (단위: 원)"
+        data_tests:
+          - not_null
 
   # ==========================================
   # 2. 인구통계 Staging 모델
@@ -71,14 +199,85 @@ models:
     description: 지역별·성별·연령별·연도별 주민등록인구수 통계 (2020-2024) 정제 모델
     columns:
       - name: population_id
-        description: 대체키
+        description: 인구수 고유 식별자 (대체키). 연도, 지역, 성별 및 연령 구분(5세별) 조합에 대한 Hash 값
+        data_tests:
+          - unique
+          - not_null
       - name: population_year
-        description: 인구수 집계 연도  
+        description: 인구수 집계 연도
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 2020
+                  - 2021
+                  - 2022
+                  - 2023
+                  - 2024
+                quote: false
       - name: region
         description: 인구수 집계 지역 구분 (시·도 수준)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 서울
+                  - 부산
+                  - 대구
+                  - 인천
+                  - 광주
+                  - 대전
+                  - 울산
+                  - 세종
+                  - 경기
+                  - 강원
+                  - 충북
+                  - 충남
+                  - 전북
+                  - 전남
+                  - 경북
+                  - 경남
+                  - 제주
       - name: gender
         description: 성별 분류 (남/여)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 남
+                  - 여
       - name: age
         description: "연령대 분류 (기준: 5세 구간)"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 0-4세
+                  - 5-9세
+                  - 10-14세
+                  - 15-19세
+                  - 20-24세
+                  - 25-29세
+                  - 30-34세
+                  - 35-39세
+                  - 40-44세
+                  - 45-49세
+                  - 50-54세
+                  - 55-59세
+                  - 60-64세
+                  - 65-69세
+                  - 70-74세
+                  - 75-79세
+                  - 80-84세
+                  - 85-89세
+                  - 90-94세
+                  - 95-99세
+                  - 100+
       - name: population_count
         description: "해당 지역·성별·연령·연도 기준 주민등록인구수 (단위: 명)"
+        data_tests:
+          - not_null
