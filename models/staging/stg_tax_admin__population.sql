@@ -12,7 +12,11 @@ renamed AS(
     SELECT
         SAFE_CAST(s.`연도` AS INT64) AS population_year,
         r.standard_region AS region,
-        s.`항목` AS gender,
+        CASE
+            WHEN s.`항목` = '남자인구수 (명)' THEN '남'
+            WHEN s.`항목` = '여자인구수 (명)' THEN '여'
+            ELSE NULL
+        END AS gender,
         s.`5세별` AS age,
         SAFE_CAST(s.`인구수` AS INT64) AS population_count
     FROM source AS s
