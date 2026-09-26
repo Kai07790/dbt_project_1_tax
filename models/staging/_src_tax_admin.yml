@@ -41,7 +41,7 @@ sources:
 
       - name: local_tax_metro
         description: >
-          지역별(특별시·광역시)·세목별·연도별 지방세 세수실적 (2020-2024)
+          지역별(시 단위 광역자치단체)·세목별·연도별 지방세 세수실적 (2020-2024)
           원천: KOSIS 1-1. 특별시 및 광역시 징수실적(총괄)
         columns:
           - name: 세목별1
@@ -51,13 +51,13 @@ sources:
           - name: 연도
             description: 세수 발생 연도
           - name: 지역
-            description: 세수 집계 지역 구분 (특별시·광역시 수준)
+            description: 세수 집계 지역 구분 (시 단위 광역자치단체)
           - name: 세수액
             description: "해당 지역·세목·연도 기준 지방세 세수액 (단위: 천원)"
 
       - name: local_tax_provincial
         description: >
-          지역별(도)·세목별·연도별 지방세 세수실적 (2020-2024)
+          지역별(도 단위 광역자치단체)·세목별·연도별 지방세 세수실적 (2020-2024)
           원천: KOSIS 1-2. 도별 징수실적(총괄)
         columns:
           - name: 세목별1
@@ -67,7 +67,7 @@ sources:
           - name: 연도
             description: 세수 발생 연도
           - name: 지역
-            description: 세수 집계 지역 구분 (도 수준)
+            description: 세수 집계 지역 구분 (도 단위 광역자치단체)
           - name: 세수액
             description: "해당 지역·세목·연도 기준 지방세 세수액 (단위: 천원)"
 
