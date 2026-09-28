@@ -374,12 +374,15 @@ Staging model에서는 surrogate key를 별도로 생성하지 않고,
 * 로컬 dbt Core와 BigQuery 연결 완료
 
 
-### Git Rebase 중 Merge Commit Flattening
+### Git Rebase 히스토리 재작성 및 브랜치 계보 복구
 
-* rebase 과정에서 merge commit 구조가 평탄화되며 발생한 conflict 분석
-* `--rebase-merges`를 사용하여 branch 구조 보존
-* `--force-with-lease`를 사용하여 remote repository 안전 동기화
-* GitHub Issue #2에 문제 발생 과정과 해결 방법 기록
+* 과거 커밋 메시지 정리 과정에서 일반 interactive rebase가 merge commit을 평탄화하며 발생한 conflict 분석
+* 초기 대응으로 `--rebase-merges`를 사용하여 merge 구조를 보존한 채 전체 히스토리를 재작성
+* 이후 이미 `main`에 merge된 과거 commit까지 feature branch에서 다시 작성되면서 commit SHA가 변경되고, `main`과 feature branch의 공통 ancestry가 끊어진 문제 확인
+* 정상 `origin/main`을 기준으로 staging 작업 commit만 `git rebase --onto`를 통해 재배치하여 branch history 복구
+* rebase 이후 `--force-with-lease`를 사용하여 remote feature branch를 안전하게 갱신하고 PR merge 완료
+* 공유되거나 이미 merge된 history는 commit message 정리를 목적으로 재작성하지 않고, history rewriting은 아직 공유되지 않은 branch 범위에서만 수행하는 원칙 정립
+* 상세한 문제 발생 및 복구 과정은 GitHub Issue #2에 기록
 
 
 ## 9. 분석상의 한계
