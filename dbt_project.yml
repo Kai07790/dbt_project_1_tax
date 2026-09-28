@@ -1,4 +1,14 @@
 name: 'dbt_project_1_tax'
 version: '1.0.0'
 config-version: 2
-profile: 'tax_pipeline'
+profile: 'dbt_project_1_tax'
+
+models:
+  dbt_project_1_tax:
+    staging:
+      +schema: staging
+      +materialized: view
+
+seeds:
+  dbt_project_1_tax:
+      +schema: seeds
