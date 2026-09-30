@@ -21,21 +21,9 @@ renamed AS(
     WHERE s.`세목별2` != '소계'
 ),
 
-added_surrogate_key AS(
-    SELECT
-        {{ dbt_utils.generate_surrogate_key([
-            'tax_year',
-            'region',
-            'tax_category_level_1',
-            'tax_category_level_2'
-        ]) }} AS tax_revenue_id,
-        *
-    FROM renamed
-),
-
 final AS(
     SELECT *
-    FROM added_surrogate_key
+    FROM renamed
 )
 
 SELECT *

@@ -24,21 +24,9 @@ renamed AS(
         ON s.`지역` = r.raw_region
 ),
 
-added_surrogate_key AS(
-    SELECT
-        {{ dbt_utils.generate_surrogate_key([
-            'population_year',
-            'region',
-            'gender',
-            'age'
-        ]) }} AS population_id,
-        *
-    FROM renamed
-),
-
 final AS(
     SELECT *
-    FROM added_surrogate_key
+    FROM renamed
 )
 
 SELECT *

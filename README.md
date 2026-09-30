@@ -209,7 +209,6 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 * 지방청 및 지역 구조 정리
 * 원천 세목 hierarchy 보존
 * 유효 세목명 식별
-* surrogate key 생성
 
 
 #### `stg_tax_admin__local_tax_metro`
@@ -228,7 +227,6 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 * 세목 hierarchy 정리
 * 지역명 표준화
 * 금액 타입 및 단위 표준화
-* surrogate key 생성
 
 
 #### `stg_tax_admin__population`
@@ -245,7 +243,6 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 * 성별 값 정규화
 * 연령구간 문자열 정리
 * 인구수 타입 변환
-* surrogate key 생성
 
 
 ### 5.2. Seed
@@ -307,7 +304,6 @@ dbt test를 통해 각 모델의 grain과 핵심 데이터 품질 규칙을 검�
 
 주요 검증 항목:
 
-* surrogate key `unique`, `not_null`
 * 필수 컬럼 `not_null`
 * 범주형 컬럼 `accepted_values`
 * dimension / fact 간 `relationships`
