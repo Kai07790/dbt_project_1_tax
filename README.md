@@ -200,7 +200,7 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 
 **Grain**
 
-`연도 × 지역 × 세목 hierarchy`
+`연도 × 지방청 × 지역 × 세목 hierarchy path (level 1–6)`
 
 주요 처리:
 
@@ -219,7 +219,7 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 
 **Grain**
 
-`연도 × 지역 × 세목 hierarchy`
+`연도 × 지역 × 세목 hierarchy path (level 1–2)`
 
 주요 처리:
 
