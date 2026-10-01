@@ -35,27 +35,9 @@ renamed AS(
         OR (`지방청` = '서울청' AND `지역` = '소계')
 ),
 
-added_surrogate_key AS(
-    -- 레코드 단위의 고유 식별자 생성
-    SELECT
-        {{ dbt_utils.generate_surrogate_key([
-            'tax_year',
-            'regional_tax_office',
-            'region',
-            'tax_category_level_1',
-            'tax_category_level_2',
-            'tax_category_level_3',
-            'tax_category_level_4',
-            'tax_category_level_5',
-            'tax_category_level_6'
-        ]) }} AS tax_revenue_id,
-        *
-    FROM renamed
-),
-
 final AS(
     SELECT *
-    FROM added_surrogate_key
+    FROM renamed
 )
 
 SELECT *

@@ -200,7 +200,11 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 
 **Grain**
 
-`연도 × 지역 × 세목 hierarchy`
+`연도 × 지방청 × 지역 × 세목 hierarchy path (level 1–6)`
+
+동일 지역이 복수의 지방청에 걸쳐 집계될 수 있으므로 `regional_tax_office`를 grain에 포함합니다.
+예를 들어 경기 지역은 원천 데이터에서 중부청과 인천청에 각각 존재하므로
+`연도 × 지역 × 세목`만으로는 행을 유일하게 식별할 수 없습니다.
 
 주요 처리:
 
@@ -209,7 +213,6 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 * 지방청 및 지역 구조 정리
 * 원천 세목 hierarchy 보존
 * 유효 세목명 식별
-* surrogate key 생성
 
 
 #### `stg_tax_admin__local_tax_metro`
@@ -220,7 +223,12 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 
 **Grain**
 
-`연도 × 지역 × 세목 hierarchy`
+`연도 × 지역 × 세목 hierarchy path (level 1–2)`
+
+동일한 세목명이 서로 다른 상위 세목 분류에 반복될 수 있으므로
+`tax_category_level_1`과 `tax_category_level_2`를 함께 grain에 포함합니다.
+예를 들어 `등록면허세`는 시세·도세·구세, `지방소득세`는 시세·군세 등
+서로 다른 상위 분류 아래에 나타날 수 있습니다.
 
 주요 처리:
 
@@ -228,7 +236,6 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 * 세목 hierarchy 정리
 * 지역명 표준화
 * 금액 타입 및 단위 표준화
-* surrogate key 생성
 
 
 #### `stg_tax_admin__population`
@@ -245,7 +252,6 @@ Intermediate, dimension / fact 및 mart dataset은 해당 layer 구현 과정에
 * 성별 값 정규화
 * 연령구간 문자열 정리
 * 인구수 타입 변환
-* surrogate key 생성
 
 
 ### 5.2. Seed
@@ -307,15 +313,25 @@ dbt test를 통해 각 모델의 grain과 핵심 데이터 품질 규칙을 검�
 
 주요 검증 항목:
 
-* surrogate key `unique`, `not_null`
 * 필수 컬럼 `not_null`
 * 범주형 컬럼 `accepted_values`
+* `dbt_utils.unique_combination_of_columns`를 통한 staging model grain 유일성 검증
 * dimension / fact 간 `relationships`
 * seed mapping key의 `unique`, `not_null`
 * source와 downstream 모델 간 row count 검증
 * source와 downstream 모델 간 aggregate reconciliation
 
-테스트는 모든 컬럼에 기계적으로 적용하지 않고, NULL 또는 중복이 발생했을 때 실제 데이터 품질 문제로 판단할 수 있는 컬럼을 중심으로 적용합니다.
+Staging model에서는 surrogate key를 별도로 생성하지 않고,
+실제 business grain을 구성하는 컬럼 조합의 유일성을 직접 검증합니다.
+
+검증하는 grain은 다음과 같습니다.
+
+* 국세: `연도 × 지방청 × 지역 × 세목 hierarchy path (level 1–6)`
+* 지방세: `연도 × 지역 × 세목 hierarchy path (level 1–2)`
+* 인구: `연도 × 지역 × 성별 × 연령구간`
+
+이를 통해 README에서 정의한 각 모델의 row grain과 실제 staging 데이터의
+유일성 제약이 일치하는지 검증합니다.
 
 
 ## 7. 개발 및 커밋 컨벤션

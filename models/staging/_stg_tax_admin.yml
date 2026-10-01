@@ -2,16 +2,24 @@ version: 2
 
 models:
   # ==========================================
-  # 1. 세수실적 Staging 모델
+  # 1. 세수실적 staging 모델
   # ==========================================
   - name: stg_tax_admin__national_tax
     description: 지역별·세목별·연도별 국세 세수실적 (2020-2024) 정제 모델
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - tax_year
+              - regional_tax_office
+              - region
+              - tax_category_level_1
+              - tax_category_level_2
+              - tax_category_level_3
+              - tax_category_level_4
+              - tax_category_level_5
+              - tax_category_level_6
     columns:
-      - name: tax_revenue_id
-        description: 국세 세수실적 고유 식별자 (대체키). 연도, 지방청, 지역 및 세목 계층(1-6단계) 조합에 대한 Hash 값
-        data_tests:
-          - unique
-          - not_null
       - name: tax_year
         description: 세수 발생 연도
         data_tests:
@@ -95,12 +103,15 @@ models:
 
   - name: stg_tax_admin__local_tax_metro
     description: 지역별(시 단위 광역자치단체)·세목별·연도별 지방세 세수실적 (2020-2024) 정제 모델
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - tax_year
+              - region
+              - tax_category_level_1
+              - tax_category_level_2
     columns:
-      - name: tax_revenue_id
-        description: 지방세 세수실적 고유 식별자 (대체키). 연도, 지역 및 세목 계층(1-2단계) 조합에 대한 Hash 값
-        data_tests:
-          - unique
-          - not_null
       - name: tax_year
         description: 세수 발생 연도
         data_tests:
@@ -144,12 +155,15 @@ models:
 
   - name: stg_tax_admin__local_tax_provincial
     description: 지역별(도 단위 광역자치단체)·세목별·연도별 지방세 세수실적 (2020-2024) 정제 모델
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - tax_year
+              - region
+              - tax_category_level_1
+              - tax_category_level_2
     columns:
-      - name: tax_revenue_id
-        description: 지방세 세수실적 고유 식별자 (대체키). 연도, 지역 및 세목 계층(1-2단계) 조합에 대한 Hash 값
-        data_tests:
-          - unique
-          - not_null
       - name: tax_year
         description: 세수 발생 연도
         data_tests:
@@ -193,16 +207,19 @@ models:
           - not_null
 
   # ==========================================
-  # 2. 인구통계 Staging 모델
+  # 2. 인구통계 staging 모델
   # ==========================================
   - name: stg_tax_admin__population
     description: 지역별·성별·연령별·연도별 주민등록인구수 통계 (2020-2024) 정제 모델
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - population_year
+              - region
+              - gender
+              - age
     columns:
-      - name: population_id
-        description: 인구수 고유 식별자 (대체키). 연도, 지역, 성별 및 연령 구분(5세별) 조합에 대한 Hash 값
-        data_tests:
-          - unique
-          - not_null
       - name: population_year
         description: 인구수 집계 연도
         data_tests:
