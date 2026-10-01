@@ -282,7 +282,6 @@ Seed 자체에도 데이터 품질 테스트를 적용하여 mapping key의 중�
 * 국세·지방세 세목 체계 표준화
 * 지방세 metro / provincial 데이터 통합
 * 인구 데이터의 분석용 aggregation
-* 연령구간 등에서 필요한 분석용 파생 컬럼 생성
 
 
 ### 5.4. Dimension / Fact Models
@@ -294,6 +293,7 @@ Seed 자체에도 데이터 품질 테스트를 적용하여 mapping key의 중�
 * `fct_national_tax`
 * `fct_local_tax`
 * `fct_population`
+* `rpt_regional_tax`
 
 
 ### 5.5. Analytics Marts
@@ -367,12 +367,6 @@ Staging model에서는 surrogate key를 별도로 생성하지 않고,
 
 
 ## 8. 트러블슈팅
-
-### Google Cloud IAM 보안 정책 차단
-
-* Google Cloud IAM 정책으로 인한 BigQuery 접근 문제 해결
-* 로컬 dbt Core와 BigQuery 연결 완료
-
 
 ### Git Rebase 히스토리 재작성 및 브랜치 계보 복구
 
