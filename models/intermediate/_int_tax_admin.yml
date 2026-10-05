@@ -4,7 +4,7 @@ models:
   - name: int_tax_admin__local_tax
     description: >
       전국 17개 시·도의 지방세 데이터를 통합하고 분석 대상 세목만 남긴 뒤,
-      충남과 세종을 충남·세종으로 표준화하여
+      충남과 세종을 충남·세종으로 통합하여
       tax_year + region + tax_name grain으로 지방세액을 집계한 모델.
       tax_category_level_1은 동일 세목의 지방자치단체 유형별 구분으로,
       지역별 세목 총액 분석에는 필요하지 않아 grain에서 제외한다.
@@ -63,5 +63,50 @@ models:
                   - 지방교육세
       - name: tax_amount
         description: "연도·지역·세목별 지방세 세수액 (단위: 원)"
+        data_tests:
+          - not_null
+
+  - name: int_tax_admin__population
+    description: >
+      연도·지역·성별·연령별 주민등록인구 데이터를
+      연도·지역 단위의 총인구수로 집계하고,
+      충남과 세종을 충남·세종으로 통합한 모델.
+      최종 grain은 population_year + region이다.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - population_year
+              - region
+    columns:
+      - name: population_year
+        description: 주민등록인구 집계 연도 (2020-2024)
+        data_tests:
+          - not_null
+      - name: region
+        description: 인구 집계 지역명 (충남·세종을 통합한 16개 분석 지역)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 서울
+                  - 부산
+                  - 대구
+                  - 인천
+                  - 광주
+                  - 대전
+                  - 울산
+                  - 경기
+                  - 강원
+                  - 충북
+                  - 충남·세종
+                  - 전북
+                  - 전남
+                  - 경북
+                  - 경남
+                  - 제주
+      - name: population_count
+        description: "연도·지역별 주민등록 총인구수 (단위: 명)"
         data_tests:
           - not_null
