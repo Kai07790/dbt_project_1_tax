@@ -9,6 +9,14 @@ models:
       +schema: staging
       +materialized: view
 
+    intermediate:
+      +schema: intermediate
+      +materialized: view
+
+    marts:
+      +schema: marts
+      +materialized: table
+
 seeds:
   dbt_project_1_tax:
       +schema: seeds
