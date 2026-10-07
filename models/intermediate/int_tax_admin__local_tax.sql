@@ -26,7 +26,7 @@ combined AS (
     FROM provincial
 ),
 
-filtered AS (
+tax_filtered AS (
     SELECT *
     FROM combined
     WHERE tax_name NOT IN ('도축세', '도시계획세', '과년도수입')
@@ -41,7 +41,7 @@ region_normalized AS (
         END AS region,
         tax_name,
         tax_amount
-    FROM filtered
+    FROM tax_filtered
 ),
 
 aggregated AS (

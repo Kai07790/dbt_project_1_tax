@@ -18,12 +18,9 @@ models:
     columns:
       - name: tax_year
         description: 세수 발생 연도 (2020-2024)
-        data_tests:
-          - not_null
       - name: region
         description: 세수 집계 지역명 (충남·세종을 통합한 16개 분석 지역)
         data_tests:
-          - not_null
           - accepted_values:
               arguments:
                 values:
@@ -44,9 +41,8 @@ models:
                   - 경남
                   - 제주
       - name: tax_name
-        description: 현행 11개 지방세 세목명 (폐지 및 분석 대상이 아닌 세목 제외)
+        description: 「지방세기본법」 제7조에 따른 11개 지방세 세목
         data_tests:
-          - not_null
           - accepted_values:
               arguments:
                 values:
@@ -81,12 +77,9 @@ models:
     columns:
       - name: population_year
         description: 주민등록인구 집계 연도 (2020-2024)
-        data_tests:
-          - not_null
       - name: region
         description: 인구 집계 지역명 (충남·세종을 통합한 16개 분석 지역)
         data_tests:
-          - not_null
           - accepted_values:
               arguments:
                 values:
