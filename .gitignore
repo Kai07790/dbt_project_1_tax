@@ -9,7 +9,7 @@ dbt_packages/
 .vscode
 
 # 3. 개인 참고 및 테스트 문서
-docs/
+local_notes/
 scripts/test.ipynb
 
 # 4. 원천 및 전처리된 데이터
