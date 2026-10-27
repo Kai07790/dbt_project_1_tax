@@ -45,7 +45,7 @@ models:
     data_tests:
       - dbt_utils.expression_is_true:
           arguments:
-            expression: "tax_ratio_local BETWEEN 0 AND 1"
+            expression: "tax_share_local BETWEEN 0 AND 1"
     columns:
       - name: tax_year
         description: 세수 발생 연도 (2020-2024)
@@ -64,11 +64,11 @@ models:
         description: "연도별 국세·지방세 전체 세수 합계 (단위: 원)"
         data_tests:
           - not_null
-      - name: tax_ratio_local
+      - name: tax_share_local
         description: 전체 세수 대비 지방세 비중 (0-1)
         data_tests:
           - not_null
-      - name: tax_ratio_local_yoy_pp
+      - name: tax_share_local_yoy_pp
         description: "지방세 비중의 전년 대비 변화 (단위: %p, 2020년은 NULL)"
 
   - name: rpt_tax_revenue_by_tax_name
