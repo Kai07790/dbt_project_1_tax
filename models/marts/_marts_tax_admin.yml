@@ -40,6 +40,7 @@ models:
     description: >
       전국 16개 분석 지역의 국세·지방세 세수실적을 연도별로 집계하여
       전체 세수액, 지방세 비중 및 전년 대비 비중 변화(%p)를 산출한 Reporting 모델.
+      국세 13개·지방세 11개 세목을 대상으로 Q1 분석에 활용한다.
       최종 grain은 tax_year이다.
     data_tests:
       - dbt_utils.expression_is_true:
@@ -69,3 +70,46 @@ models:
           - not_null
       - name: tax_ratio_local_yoy_pp
         description: "지방세 비중의 전년 대비 변화 (단위: %p, 2020년은 NULL)"
+
+  - name: rpt_tax_revenue_by_tax_name
+    description: >
+      전국 16개 분석 지역의 국세·지방세 세수실적을 세목별로 집계하여
+      세수액, 구성비, 세수액 순위, 전년 대비 증감액 및 증감률을 제공하는 Reporting 모델.
+      국세 13개·지방세 11개 세목을 대상으로 Q2-1, Q2-2 분석에 활용한다.
+      최종 grain은 tax_year + tax_type + tax_name이다.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - tax_year
+              - tax_type
+              - tax_name
+    columns:
+      - name: tax_year
+        description: 세수 발생 연도 (2020-2024)
+      - name: tax_type
+        description: 세금 유형 구분 (국세/지방세)
+      - name: tax_name
+        description: 세목명 (국세 13개·지방세 11개)
+      - name: tax_amount
+        description: "연도·세금 유형·세목별 세수 합계 (단위: 원)"
+        data_tests:
+          - not_null
+      - name: tax_share_in_type
+        description: 동일 연도·세금 유형의 전체 세수 대비 해당 세목의 세수 비중 (1 = 100%)
+        data_tests:
+          - not_null
+      - name: tax_rank_in_type
+        description: >
+          동일 연도·세금 유형 내 세목별 세수액의 내림차순 순위
+          (동률은 공동순위, RANK 기준)
+        data_tests:
+          - not_null
+      - name: tax_amount_yoy_change
+        description: >
+          동일 세금 유형·세목의 전년 대비 세수 증감액
+          (단위: 원, 2020년은 NULL)
+      - name: tax_amount_yoy_change_rate
+        description: >
+          동일 세금 유형·세목의 전년 대비 세수 증감률
+          (1 = 100%, 2020년은 NULL)
