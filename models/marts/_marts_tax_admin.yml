@@ -74,7 +74,7 @@ models:
   - name: rpt_tax_revenue_by_tax_name
     description: >
       전국 16개 분석 지역의 국세·지방세 세수실적을 세목별로 집계하여
-      세수액, 구성비, 세수액 순위, 전년 대비 증감액 및 증감률을 제공하는 Reporting 모델.
+      세수액, 구성비, 전년 대비 증감액 및 증감률을 제공하는 Reporting 모델.
       국세 13개·지방세 11개 세목을 대상으로 Q2-1, Q2-2 분석에 활용한다.
       최종 grain은 tax_year + tax_type + tax_name이다.
     data_tests:
@@ -97,12 +97,6 @@ models:
           - not_null
       - name: tax_share_in_type
         description: 동일 연도·세금 유형의 전체 세수 대비 해당 세목의 세수 비중 (1 = 100%)
-        data_tests:
-          - not_null
-      - name: tax_rank_in_type
-        description: >
-          동일 연도·세금 유형 내 세목별 세수액의 내림차순 순위
-          (동률은 공동순위, RANK 기준)
         data_tests:
           - not_null
       - name: tax_amount_yoy_change
