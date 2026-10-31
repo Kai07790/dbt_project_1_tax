@@ -55,7 +55,7 @@
 
 ### Q2-1. 주요 세목의 규모 및 증감 분석
 
-**분석 SQL:** `analyses/tax_top_rank_by_tax_name.sql`  
+**분석 SQL:** `analyses/tax_name_revenue_rankings.sql`  
 **조회 범위:** 국세 13개·지방세 11개 세목  
 **분석 기준:** 각 연도·세금 유형별 세수액 상위 3위, 증가액 상위 3위, 감소액 상위 3위 (`RANK()` 기준)
 
@@ -126,7 +126,7 @@
 
 ### Q2-2. 세목별 구성비 변화 분석
 
-**분석 SQL:** `analyses/tax_share_trend_by_tax_name.sql`  
+**분석 SQL:** `analyses/tax_name_share_trend.sql`  
 **조회 범위:** 국세 13개·지방세 11개 세목  
 **결과 Grain:** `tax_type × tax_name` (연도별 구성비를 가로형으로 전개)
 
