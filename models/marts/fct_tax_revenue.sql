@@ -16,9 +16,7 @@ combined AS (
         tax_name,
         tax_amount
     FROM national
-
     UNION ALL
-
     SELECT
         tax_year,
         region,
@@ -29,7 +27,12 @@ combined AS (
 ),
 
 final AS (
-    SELECT *
+    SELECT
+        tax_year,
+        region,
+        tax_type,
+        tax_name,
+        tax_amount
     FROM combined
 )
 
