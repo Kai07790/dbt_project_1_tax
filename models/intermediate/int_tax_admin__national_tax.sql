@@ -1,11 +1,11 @@
-WITH national_tax AS (
+WITH national AS (
     SELECT *
     FROM {{ ref('stg_tax_admin__national_tax') }}
 ),
 
-tax_office_cleaned AS (
+jurisdiction_filtered AS (
     SELECT *
-    FROM national_tax
+    FROM national
     WHERE NOT (
         regional_tax_office = '중부청'
         AND region = '인천'
@@ -14,7 +14,7 @@ tax_office_cleaned AS (
 
 tax_filtered AS (
     SELECT *
-    FROM tax_office_cleaned
+    FROM jurisdiction_filtered
     WHERE effective_tax_category_name IN (
         '소득세',
         '법인세',
